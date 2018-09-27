@@ -81,6 +81,17 @@
 	  ],
 	  "xp":5,
 	  "img":"lich.png"
+	},
+	{
+	  "name":"Monster with a long name",
+	  "race":["beast"],
+	  "stats":[
+		{
+		  "strength":2
+		}
+	  ],
+	  "xp":1,
+	  "img":"wolf.png"
 	}
   ]
 }

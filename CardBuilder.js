@@ -9,7 +9,7 @@ var imgCardBorder = new Image();
 imgCardBorder.src = "CardData/Components/cardBorder.png";
 imgCardBorder.onload = function() {
 	completedPreparationSteps++;
-	if(completedPreparationSteps == TOTAL_PREP_STEPS) {
+	if(completedPreparationSteps === TOTAL_PREP_STEPS) {
 		BuildCards();
 	}
 };
@@ -20,7 +20,7 @@ readRequestCards.overrideMimeType("application/json");
 readRequestCards.open("GET", "CardData/Test/cards.json", true);
 readRequestCards.onreadystatechange = function () {
 	if (readRequestCards.readyState === 4) {
-		if (readRequestCards.status === 200 || readRequestCards.status == 0) {
+		if (readRequestCards.status === 200 || readRequestCards.status === 0) {
 			cardsData = JSON.parse(readRequestCards.responseText);
 			console.log(cardsData);
 
@@ -37,12 +37,12 @@ readRequestSettings.overrideMimeType("application/json");
 readRequestSettings.open("GET", "CardData/Components/settings.json", true);
 readRequestSettings.onreadystatechange = function() {
 	if (readRequestSettings.readyState === 4) {
-		if (readRequestSettings.status === 200 || readRequestSettings.status == 0) {
+		if (readRequestSettings.status === 200 || readRequestSettings.status === 0) {
 			settingsData = JSON.parse(readRequestSettings.responseText);
 			console.log(settingsData);
 
 			completedPreparationSteps++;
-			if(completedPreparationSteps == TOTAL_PREP_STEPS) {
+			if(completedPreparationSteps === TOTAL_PREP_STEPS) {
 				BuildCards();
 			}
 		}
@@ -62,9 +62,9 @@ function loadCardArt() {
 
 		img.onload = function () {
 			loadedImages++;
-			if(loadedImages == cardsData.cards.length) {
+			if(loadedImages === cardsData.cards.length) {
 				completedPreparationSteps++;
-				if(completedPreparationSteps == TOTAL_PREP_STEPS) {
+				if(completedPreparationSteps === TOTAL_PREP_STEPS) {
 					BuildCards();
 				}
 			}
@@ -122,8 +122,17 @@ function BuildCards() {
 		ccontext.drawImage(cardArt[index], 10, 55, 90, 170);
 
 		// 4) draw the card name
-		
-
+		var fontSize = 26;
+		ccontext.font = (fontSize.toString()).concat("px Arial");
+		// fit the name in one line
+		while( ccontext.measureText(card.name).width > 180) {
+			fontSize -= 2;
+			console.log(fontSize);
+			ccontext.font = (fontSize.toString()).concat("px Arial");
+		}
+		ccontext.textAlign = "center";
+		ccontext.fillStyle = "black";
+		ccontext.fillText(card.name, 100, 40 - (26 - fontSize)/2 );
 	}
 }
 
