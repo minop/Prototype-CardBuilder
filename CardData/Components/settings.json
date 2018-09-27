@@ -1,0 +1,12 @@
+{
+  "races": {
+	"humanoid":"#00ccff",
+	"demon":"#ff33cc",
+	"beast":"#66ff33",
+	"undead":"#fafaf7"
+  },
+  "stats":{
+	"strength":"#de0000",
+	"will":"#0021de"
+  }
+}

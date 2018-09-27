@@ -1,0 +1,12 @@
+body {
+	background-image: url("background.png");
+	background-repeat: repeat;
+}
+
+canvas {
+	width: 200px;
+	height: 400px;
+	margin: 5px;
+
+	display: inline-block;
+}
