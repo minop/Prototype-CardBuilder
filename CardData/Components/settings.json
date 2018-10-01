@@ -8,5 +8,8 @@
   "stats":{
 	"strength":"#de0000",
 	"will":"#0021de"
+  },
+  "elements":{
+	"separator":"#a03caa"
   }
 }

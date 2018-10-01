@@ -22,8 +22,6 @@ readRequestCards.onreadystatechange = function () {
 	if (readRequestCards.readyState === 4) {
 		if (readRequestCards.status === 200 || readRequestCards.status === 0) {
 			cardsData = JSON.parse(readRequestCards.responseText);
-			console.log(cardsData);
-
 			completedPreparationSteps++;
 			// this can't be the last operation, because we do another operation after this one
 			loadCardArt();
@@ -73,7 +71,6 @@ function loadCardArt() {
 }
 
 function BuildCards() {
-	console.log("BUILDING");
 	// slightly hack-y there is probably a more elegant way to do this
 	for(var index in cardsData.cards) {
 		var card = cardsData.cards[index];
@@ -127,12 +124,30 @@ function BuildCards() {
 		// fit the name in one line
 		while( ccontext.measureText(card.name).width > 180) {
 			fontSize -= 2;
-			console.log(fontSize);
 			ccontext.font = (fontSize.toString()).concat("px Arial");
 		}
 		ccontext.textAlign = "center";
 		ccontext.fillStyle = "black";
 		ccontext.fillText(card.name, 100, 40 - (26 - fontSize)/2 );
+
+		// 5) draw the race texts
+		// each race on a separate line because it is troublesome to print one line with multiple colors (could be attempted with some gradients)
+		ccontext.font = "12px Arial";
+		var sideTextOffset = 53;
+		for(var i = 0; i < card.race.length; i++) {
+			ccontext.fillStyle = getColorFromRace(card.race[i]);
+			// text align is center from previous printing
+			ccontext.fillText(card.race[i], 150, 65 + i*12 );
+			sideTextOffset += 12;
+		}
+
+		// 6) draw the separation element
+		var separatorGradient = ccontext.createRadialGradient(150, sideTextOffset+5, 20, 150, sideTextOffset+5, 40);
+		separatorGradient.addColorStop(0, settingsData.elements["separator"]);
+		separatorGradient.addColorStop(1, "black");
+		ccontext.fillStyle = separatorGradient;
+		ccontext.fillRect(110, sideTextOffset+2, 80, 6);
+		sideTextOffset += 8;
 	}
 }
 
